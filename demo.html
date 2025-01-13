@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget</title>
+  </head>
+  <body>
+    <script type="module">
+      import { mount, html } from "./act.js";
+
+      let size = 50;
+      let angle = 0;
+
+      function setSize(event) {
+        size = event.target.value;
+        refresh();
+      }
+
+      function setAngle(event) {
+        angle = event.target.value;
+        refresh();
+      }
+
+      function app() {
+        const style = {
+          height: `${size}px`,
+          width: `${size}px`,
+          transform: `rotate(${angle}deg)`,
+          backgroundColor: "blue",
+        };
+
+        return html`
+          <div>
+            <pre>Size: ${size}</pre>
+            <input type="range" max="100" step="10" value=${size} onInput=${setSize} />
+            <pre>Angle: ${angle}</pre>
+            <input type="range" max="360" value=${angle} onInput=${setAngle} />
+            <div style=${style}></div>
+          </div>
+        `;
+      }
+
+      const refresh = mount(app, document.body);
+    </script>
+  </body>
+</html>
